@@ -9,11 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Force dependency graph
-        run: echo "Scan triggered at $(date)" >> scan.log
-
-      - name: Upload dummy file
-        uses: actions/upload-artifact@v2  # ✅ Known good version
-        with:
-          name: scan-trigger
-          path: scan.log
+      - name: Touch dummy file
+        run: |
+          echo "Triggering scan at $(date)" >> scan.log
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
+          git init
+          git add scan.log
+          git commit -m "Trigger dependency graph"
