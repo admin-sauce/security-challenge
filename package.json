@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "minimist": "1.2.0",       // Vulnerable version (CVE-2020-7598)
-    "lodash": "4.17.15"        // Vulnerable version (CVE-2021-23337)
+    "lodash": "4.17.15"        
   }
 }
