@@ -1,12 +1,15 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"  # JavaScript
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
+    # Add branch specification
+    target-branch: "master"  # CRITICAL FIX
     open-pull-requests-limit: 10
 
-  - package-ecosystem: "github-actions"  # Actions
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    target-branch: "master"  # CRITICAL FIX
