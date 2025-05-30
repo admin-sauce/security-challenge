@@ -1,0 +1,16 @@
+name: Trigger Dependency Scan
+on: 
+  workflow_dispatch:  # Allows manual run
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Force dependency graph
+        run: echo "Scan triggered at $(date)" >> scan.log
+        
+      - name: Upload dummy file
+        uses: actions/upload-artifact@v3
+        with:
+          name: scan-trigger
+          path: scan.log
