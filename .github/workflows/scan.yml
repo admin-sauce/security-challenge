@@ -5,7 +5,7 @@ on:
 
 jobs:
   scan:
-    runs-on: ubuntu-22.04  # ✅ Use older stable runner
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -13,7 +13,7 @@ jobs:
         run: echo "Scan triggered at $(date)" >> scan.log
 
       - name: Upload dummy file
-        uses: actions/upload-artifact@v2  # or @v2 if v3 still fails
+        uses: actions/upload-artifact@v2  # ✅ Known good version
         with:
           name: scan-trigger
           path: scan.log
