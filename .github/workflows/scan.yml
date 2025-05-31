@@ -1,19 +1,36 @@
-name: Trigger Dependency Scan
+name: Dependency Graph Check and Dependabot Trigger
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - 'package.json'
+      - '.github/dependabot.yml'
 
 jobs:
-  scan:
+  validate-and-trigger:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Touch dummy file
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate package.json
         run: |
-          echo "Triggering scan at $(date)" >> scan.log
-          git config --global user.email "you@example.com"
-          git config --global user.name "GitHub Actions"
-          git init
-          git add scan.log
-          git commit -m "Trigger dependency graph"
+          echo "Validating package.json..."
+          cat package.json | jq empty || (echo "Invalid JSON!" && exit 1)
+
+      - name: Show Dependencies
+        run: |
+          echo "Listing dependencies from package.json..."
+          jq .dependencies package.json || echo "No dependencies found."
+
+      - name: Force GitHub to refresh dependency graph
+        run: |
+          echo "Triggering dependency graph refresh by touching dummy file..."
+          echo "Trigger refresh $(date)" > force-dependency-refresh.txt
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add force-dependency-refresh.txt
+          git commit -m "chore: trigger dependency graph refresh"
+          git push
