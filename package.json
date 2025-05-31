@@ -2,8 +2,8 @@
   "name": "security-challenge",
   "version": "1.0.0",
   "dependencies": {
-    "ini": "^1.3.5"             // CVE-2020-7788
-    "minimist": "^1.2.0",       // CVE-2020-7598
-    "lodash": "^4.17.15"        // CVE-2020-8364
+    "ini": "^1.3.5"             
+    "minimist": "^1.2.0",       
+    "lodash": "^4.17.15"        
   }
 }
